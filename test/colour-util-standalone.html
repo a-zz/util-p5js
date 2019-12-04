@@ -1,0 +1,97 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>util-p5js :: colour-util test bench</title>
+  <style></style>
+  <script src="../js/p5.js"></script>
+  <script src="../js/colour-util-p5.js"></script>
+  <script> 
+  function setup() {
+  
+    createCanvas(450, 300);	
+    noStroke();
+    textAlign(CENTER);
+
+    var palette = AZZP5.paletteMono3(round(random(0, 359)));	
+    fill(palette[0]);
+    rect(0, 0, 90, 60);
+    fill(palette[1]);
+    rect(0, 60, 60, 30);
+    fill(palette[2]);
+    rect(60, 60, 30, 30);	
+    fill('#cccccc');
+    text('mono3', 45, 110);
+
+    palette = AZZP5.paletteMono5(round(random(0, 359)));	
+    fill(palette[0]);
+    rect(0, 180, 30, 60);
+    fill(palette[1]);
+    rect(30, 180, 30, 60);
+    fill(palette[2]);
+    rect(60, 180, 30, 60);	
+    fill(palette[3]);
+    rect(0, 240, 60, 30);
+    fill(palette[4]);
+    rect(60, 240, 30, 30);
+    fill('#cccccc');
+    text('mono3', 45, 290);	
+
+    palette = AZZP5.paletteCompl3(round(random(0, 359)));	
+    fill(palette[0]);
+    rect(180, 0, 90, 60);
+    fill(palette[1]);
+    rect(180, 60, 60, 30);
+    fill(palette[2]);
+    rect(240, 60, 30, 30);
+    fill('#cccccc');
+    text('compl3', 225, 110);
+    
+    palette = AZZP5.paletteCompl5(round(random(0, 359)));	
+    fill(palette[0]);
+    rect(180, 180, 30, 60);
+    fill(palette[1]);
+    rect(210, 180, 30, 60);
+    fill(palette[2]);
+    rect(240, 180, 30, 60);	
+    fill(palette[3]);
+    rect(180, 240, 60, 30);
+    fill(palette[4]);
+    rect(240, 240, 30, 30);	
+    fill('#cccccc');
+    text('compl5', 225, 290);	
+    
+    palette = AZZP5.paletteTrio3(round(random(0, 359)));	
+    fill(palette[0]);
+    rect(360, 0, 90, 60);
+    fill(palette[1]);
+    rect(360, 60, 60, 30);
+    fill(palette[2]);
+    rect(420, 60, 30, 30);	
+    fill('#cccccc');
+    text('trio3', 405, 110);	
+    
+    palette = AZZP5.paletteTrio5(round(random(0, 359)));	
+    fill(palette[0]);
+    rect(360, 180, 30, 60);
+    fill(palette[1]);
+    rect(390, 180, 30, 60);
+    fill(palette[2]);
+    rect(420, 180, 30, 60);	
+    fill(palette[3]);
+    rect(360, 240, 60, 30);
+    fill(palette[4]);
+    rect(420, 240, 30, 30);	
+    fill('#cccccc');
+    text('trio5', 405, 290);	      
+  }
+  </script>
+</head>
+
+<body>
+  <h1>colour-util-p5.js</h1>
+</body>
+
+</html>
