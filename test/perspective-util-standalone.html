@@ -5,7 +5,9 @@
 <head>
   <meta charset="utf-8">
   <title>util-p5js :: perspective-util test bench</title>
-  <style></style>
+  <style>
+  body { background:#2e2e2e; color:#cccccc; }
+  </style>
   <script src="../js/p5.js"></script>
   <script src="../js/3dvector-util-p5.js"></script>
   <script src="../js/perspective-util-p5.js"></script>
@@ -29,7 +31,7 @@
     for(let i = 0; i<n; i++) {
       var sa = 1.2 * saw * i;
       var sas = ab + sa - 1/2 * saw;
-      var sae = ab + sa + 1/2 * saw;		
+      var sae = ab + sa + 1/2 * saw;
       var r = cs/2.2;
       var xs = cs/2 + r * cos(sas);
       var ys = cs/2 + r * sin(sas);
@@ -46,14 +48,15 @@
         var psf = AZZP5.cpresolve(pv, ppn, ppt, ppd, sf);
         var pen = AZZP5.cpresolve(pv, ppn, ppt, ppd, en);
         var pef = AZZP5.cpresolve(pv, ppn, ppt, ppd, ef);
-        var frn = Math.sqrt((psn[0]-cs/2)*(psn[0]-cs/2)+(psn[1]-cs/2)*(psn[1]-cs/2));
-        var frf = Math.sqrt((psf[0]-cs/2)*(psf[0]-cs/2)+(psf[1]-cs/2)*(psf[1]-cs/2));
+        var frn = sqrt((psn[0]-cs/2)*(psn[0]-cs/2)+(psn[1]-cs/2)*(psn[1]-cs/2));
+        var frf = sqrt((psf[0]-cs/2)*(psf[0]-cs/2)+(psf[1]-cs/2)*(psf[1]-cs/2));
         var fc = color('white');
         var fd = 2 * (sae-sas) * frn * 1.5;
         for(var fa = sas; fa <=sae; fa += (sae-sas)/fd) {
           strokeWeight(1)
           stroke(fc);
-          line(cs/2 + frn*cos(fa), cs/2 + frn*sin(fa), cs/2 + frf*cos(fa), cs/2 + frf*sin(fa));
+          line(cs/2 + frn*cos(fa), cs/2 + frn*sin(fa), 
+               cs/2 + frf*cos(fa), cs/2 + frf*sin(fa));
         }
         strokeWeight(1.2);
         stroke(50);
@@ -63,7 +66,7 @@
         arc(cs/2, cs/2, 2*frn, 2*frn, sas, sae);
         arc(cs/2, cs/2, 2*frf, 2*frf, sas, sae);
       }
-    }		
+    }
   }
   </script>
 </head>

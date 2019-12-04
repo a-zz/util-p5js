@@ -1,0 +1,245 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>util-p5js :: multi-instance test bench</title>
+  <style>
+  body { background:#2e2e2e; color:#cccccc; }
+  </style>
+  <script src="../js/p5.js"></script>
+  <script src="../js/colour-util-p5.js"></script>
+  <script src="../js/3dvector-util-p5.js"></script>
+  <script src="../js/perspective-util-p5.js"></script>
+  <script>
+  var colourUtilSketch = function(s) {
+  
+    s.setup = function() {
+    
+        s.createCanvas(450, 300);	
+        s.noStroke();
+        s.textAlign(s.CENTER);
+
+        var palette = AZZP5.paletteMono3(s.round(s.random(0, 359)), s);	
+        s.fill(palette[0]);
+        s.rect(0, 0, 90, 60);
+        s.fill(palette[1]);
+        s.rect(0, 60, 60, 30);
+        s.fill(palette[2]);
+        s.rect(60, 60, 30, 30);	
+        s.fill('#cccccc');
+        s.text('mono3', 45, 110);
+
+        palette = AZZP5.paletteMono5(s.round(s.random(0, 359)), s);	
+        s.fill(palette[0]);
+        s.rect(0, 180, 30, 60);
+        s.fill(palette[1]);
+        s.rect(30, 180, 30, 60);
+        s.fill(palette[2]);
+        s.rect(60, 180, 30, 60);	
+        s.fill(palette[3]);
+        s.rect(0, 240, 60, 30);
+        s.fill(palette[4]);
+        s.rect(60, 240, 30, 30);
+        s.fill('#cccccc');
+        s.text('mono3', 45, 290);	
+
+        palette = AZZP5.paletteCompl3(s.round(s.random(0, 359)), s);	
+        s.fill(palette[0]);
+        s.rect(180, 0, 90, 60);
+        s.fill(palette[1]);
+        s.rect(180, 60, 60, 30);
+        s.fill(palette[2]);
+        s.rect(240, 60, 30, 30);
+        s.fill('#cccccc');
+        s.text('compl3', 225, 110);
+        
+        palette = AZZP5.paletteCompl5(s.round(s.random(0, 359)), s);	
+        s.fill(palette[0]);
+        s.rect(180, 180, 30, 60);
+        s.fill(palette[1]);
+        s.rect(210, 180, 30, 60);
+        s.fill(palette[2]);
+        s.rect(240, 180, 30, 60);	
+        s.fill(palette[3]);
+        s.rect(180, 240, 60, 30);
+        s.fill(palette[4]);
+        s.rect(240, 240, 30, 30);	
+        s.fill('#cccccc');
+        s.text('compl5', 225, 290);	
+        
+        palette = AZZP5.paletteTrio3(s.round(s.random(0, 359)), s);	
+        s.fill(palette[0]);
+        s.rect(360, 0, 90, 60);
+        s.fill(palette[1]);
+        s.rect(360, 60, 60, 30);
+        s.fill(palette[2]);
+        s.rect(420, 60, 30, 30);	
+        s.fill('#cccccc');
+        s.text('trio3', 405, 110);	
+        
+        palette = AZZP5.paletteTrio5(s.round(s.random(0, 359)), s);	
+        s.fill(palette[0]);
+        s.rect(360, 180, 30, 60);
+        s.fill(palette[1]);
+        s.rect(390, 180, 30, 60);
+        s.fill(palette[2]);
+        s.rect(420, 180, 30, 60);	
+        s.fill(palette[3]);
+        s.rect(360, 240, 60, 30);
+        s.fill(palette[4]);
+        s.rect(420, 240, 30, 30);	
+        s.fill('#cccccc');
+        s.text('trio5', 405, 290);	      
+    }
+  };
+  new p5(colourUtilSketch, 'colour-util-sketch-cntnr');
+  
+  var perspectiveUtilSketch = function(s) {
+  
+    s.setup = function() {
+    
+      var cs = 600;
+      s.createCanvas(cs, cs);
+      
+      var n = 15;    
+      var ab = s.random(2 * s.PI);
+      var saw = 2 * s.PI / (1.2*n);
+      var pv = [cs/2, cs/2, 0];
+      var ppn = [0, 0, 1];
+      var ppt = [0, 1, 0];
+      var ppd = cs/2;
+      var zn = cs/2;
+      var zf = cs*1.9;
+      var saz = (zf-zn) / n;
+      
+      for(let i = 0; i<n; i++) {
+        var sa = 1.2 * saw * i;
+        var sas = ab + sa - 1/2 * saw;
+        var sae = ab + sa + 1/2 * saw;		
+        var r = cs/2.2;
+        var xs = cs/2 + r * s.cos(sas);
+        var ys = cs/2 + r * s.sin(sas);
+        var xe = cs/2 + r * s.cos(sae);
+        var ye = cs/2 + r * s.sin(sae);
+        for(let j = 0; j<n/2; j++) {
+          if(s.random()>0.5)
+            continue;
+          var sn = [xs, ys, zn+saz*0.2+saz*j];
+          var sf = [xs, ys, zn+saz*(j+1)];
+          var en = [xe, ye, zn+saz*0.2+saz*j];
+          var ef = [xe, ye, zn+saz*(j+1)];
+          var psn = AZZP5.cpresolve(pv, ppn, ppt, ppd, sn);
+          var psf = AZZP5.cpresolve(pv, ppn, ppt, ppd, sf);
+          var pen = AZZP5.cpresolve(pv, ppn, ppt, ppd, en);
+          var pef = AZZP5.cpresolve(pv, ppn, ppt, ppd, ef);
+          var frn = s.sqrt((psn[0]-cs/2)*(psn[0]-cs/2)+(psn[1]-cs/2)*(psn[1]-cs/2));
+          var frf = s.sqrt((psf[0]-cs/2)*(psf[0]-cs/2)+(psf[1]-cs/2)*(psf[1]-cs/2));
+          var fc = s.color('white');
+          var fd = 2 * (sae-sas) * frn * 1.5;
+          for(var fa = sas; fa <=sae; fa += (sae-sas)/fd) {
+            s.strokeWeight(1)
+            s.stroke(fc);
+            s.line(cs/2 + frn*s.cos(fa), cs/2 + frn*s.sin(fa), 
+                   cs/2 + frf*s.cos(fa), cs/2 + frf*s.sin(fa));
+          }
+          s.strokeWeight(1.2);
+          s.stroke(50);
+          s.line(psn[0], psn[1], psf[0], psf[1]);
+          s.line(pen[0], pen[1], pef[0], pef[1]);
+          s.noFill();
+          s.arc(cs/2, cs/2, 2*frn, 2*frn, sas, sae);
+          s.arc(cs/2, cs/2, 2*frf, 2*frf, sas, sae);
+        }
+      }		
+    }
+  }
+  new p5(perspectiveUtilSketch, 'perspective-util-sketch-cntnr');
+  </script>
+</head>
+
+<body>
+  <h1>colour-util-p5.js</h1>
+  <div id='colour-util-sketch-cntnr'></div>
+
+  <h1>perspective-util-p5.js</h1>
+  <div id='perspective-util-sketch-cntnr'></div>  
+</body>
+
+<!--/html>
+<!doctype html>
+
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>util-p5js :: perspective-util test bench</title>
+  <style></style>
+  <script src="../js/p5.js"></script>
+  <script src="../js/3dvector-util-p5.js"></script>
+  <script src="../js/perspective-util-p5.js"></script>
+  <script> 
+  function setup() {
+    
+    var cs = 600;
+    createCanvas(cs, cs);
+    
+    var n = 15;    
+    var ab = random(2 * PI);
+    var saw = 2 * PI / (1.2*n);
+    var pv = [cs/2, cs/2, 0];
+    var ppn = [0, 0, 1];
+    var ppt = [0, 1, 0];
+    var ppd = cs/2;
+    var zn = cs/2;
+    var zf = cs*1.9;
+    var saz = (zf-zn) / n;
+    
+    for(let i = 0; i<n; i++) {
+      var sa = 1.2 * saw * i;
+      var sas = ab + sa - 1/2 * saw;
+      var sae = ab + sa + 1/2 * saw;		
+      var r = cs/2.2;
+      var xs = cs/2 + r * cos(sas);
+      var ys = cs/2 + r * sin(sas);
+      var xe = cs/2 + r * cos(sae);
+      var ye = cs/2 + r * sin(sae);
+      for(let j = 0; j<n/2; j++) {
+        if(random()>0.5)
+          continue;
+        var sn = [xs, ys, zn+saz*0.2+saz*j];
+        var sf = [xs, ys, zn+saz*(j+1)];
+        var en = [xe, ye, zn+saz*0.2+saz*j];
+        var ef = [xe, ye, zn+saz*(j+1)];
+        var psn = AZZP5.cpresolve(pv, ppn, ppt, ppd, sn);
+        var psf = AZZP5.cpresolve(pv, ppn, ppt, ppd, sf);
+        var pen = AZZP5.cpresolve(pv, ppn, ppt, ppd, en);
+        var pef = AZZP5.cpresolve(pv, ppn, ppt, ppd, ef);
+        var frn = Math.sqrt((psn[0]-cs/2)*(psn[0]-cs/2)+(psn[1]-cs/2)*(psn[1]-cs/2));
+        var frf = Math.sqrt((psf[0]-cs/2)*(psf[0]-cs/2)+(psf[1]-cs/2)*(psf[1]-cs/2));
+        var fc = color('white');
+        var fd = 2 * (sae-sas) * frn * 1.5;
+        for(var fa = sas; fa <=sae; fa += (sae-sas)/fd) {
+          strokeWeight(1)
+          stroke(fc);
+          line(cs/2 + frn*cos(fa), cs/2 + frn*sin(fa), cs/2 + frf*cos(fa), cs/2 + frf*sin(fa));
+        }
+        strokeWeight(1.2);
+        stroke(50);
+        line(psn[0], psn[1], psf[0], psf[1]);
+        line(pen[0], pen[1], pef[0], pef[1]);
+        noFill();
+        arc(cs/2, cs/2, 2*frn, 2*frn, sas, sae);
+        arc(cs/2, cs/2, 2*frf, 2*frf, sas, sae);
+      }
+    }		
+  }
+  </script>
+</head>
+
+<body>
+  <h1>perspective-util-p5.js</h1>
+</body>
+
+</html-->
