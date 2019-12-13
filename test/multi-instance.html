@@ -12,6 +12,7 @@
   <script src="../js/colour-util-p5.js"></script>
   <script src="../js/3dvector-util-p5.js"></script>
   <script src="../js/perspective-util-p5.js"></script>
+  <script src="../js/2dgeometry-util-p5.js"></script>
   <script>
   var colourUtilSketch = function(s) {
   
@@ -156,6 +157,35 @@
     }
   }
   new p5(perspectiveUtilSketch, 'perspective-util-sketch-cntnr');
+  
+  var twoDgeometryUtilSketch = function(s) {
+  
+    var cw = 600;
+    var ch = 400;
+  
+    s.setup = function() {
+      
+      s.createCanvas(cw, ch);	
+      s.frameRate(2);
+      s.strokeWeight(2);
+    }
+    
+    s.draw = function() {
+    
+      s.clear();
+      var p1 = [s.random(cw), s.random(ch)];
+      var p2 = [s.random(cw), s.random(ch)];
+      var q1 = [s.random(cw), s.random(ch)];
+      var q2 = [s.random(cw), s.random(ch)];
+      if(AZZP5.doSegmentsIntersect(p1, p2, q1, q2))
+        s.stroke('green');
+      else
+        s.stroke('red');
+      s.line(p1[0], p1[1], p2[0], p2[1]);  
+      s.line(q1[0], q1[1], q2[0], q2[1]);  
+    }
+  }
+  new p5(twoDgeometryUtilSketch, '2dgeometry-util-sketch-cntnr');
   </script>
 </head>
 
@@ -165,6 +195,9 @@
 
   <h1>perspective-util-p5.js</h1>
   <div id='perspective-util-sketch-cntnr'></div>  
+
+  <h1>2dgeometry-util-p5.js</h1>
+  <div id='2dgeometry-util-sketch-cntnr'></div>    
 </body>
 
 </html>
