@@ -11,15 +11,15 @@
 var AZZP5 = AZZP5 || {};
 (function(context) { 
   
-  /* cpresolve
+  /* cpresolve()
   * Resolves a target point on a projection plane by conical perspective
-  * Args:	pv ([3]) Point of view (i.e. "camera position")
-  *        ppn ([3]) Projection plane normal (i.e. "camera direction")
-  *        ppt ([3]) Projection plane top (i.e. "camera roll"); must be
+  * Args: pv ([3]) Point of view (i.e. "camera position")
+  *       ppn ([3]) Projection plane normal (i.e. "camera direction")
+  *       ppt ([3]) Projection plane top (i.e. "camera roll"); must be
   *          normal to ppn.
-  *        ppd (number) Projection plane distance from point of view
-  *        tp ([3]) Target point
-  * Rtrn: 	([2]) The projected point within the plane. Coordinates are
+  *       ppd (number) Projection plane distance from point of view
+  *       tp ([3]) Target point
+  * Rtrn: ([2]) The projected point within the plane. Coordinates are
   *          relative to ppt: x is clockwise normal to ttp; y is along ttp.
   */
   context.cpresolve = function(pv, ppn, ppt, ppd, tp) {
