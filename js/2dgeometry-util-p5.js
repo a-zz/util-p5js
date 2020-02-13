@@ -1,5 +1,5 @@
 /* ************************************************************************** *
- * 2dgeometru-util-p5.js                                                      *
+ * 2dgeometry-util-p5.js                                                      *
  *  > 2D geometry operations and utilites                                     *
  * pareidolia.es, 2019 - GNU GENERAL PUBLIC LICENSE Version 3                 *
  * ************************************************************************** *
@@ -9,7 +9,31 @@
  * ************************************************************************** */
 var AZZP5 = AZZP5 || {};
 (function(context) { 
+  
+  /* linesIntersection
+   * Finds the intersection point of two lines defined by duplets of points
+   * Args.: p1 ([2]) Start point of first segment
+   *        p2 ([2]) End point of first segment
+   *        q1 ([2]) Start point of second segment
+   *        q2 ([2]) End point of second segment
+   * Rtrn.: ([]) Intersection point [x, y]; null if parallel or colinear
+   * Credit to: http://www.ambrsoft.com/MathCalc/Line/TwoLinesIntersection/TwoLinesIntersection.htm
+   */
+  context.linesIntersection = function(p1, p2, q1, q2) {
    
+    let x1 = p1[0], y1 = p1[1];
+    let x2 = p2[0], y2 = p2[1];
+    let x3 = q1[0], y3 = q1[1];
+    let x4 = q2[0], y4 = q2[1];
+    
+    let den = (x2-x1)*(y4-y3)-(x4-x3)*(y2-y1);
+    if(den==0)
+      return null;
+    else
+      return [((x2*y1-x1*y2)*(x4-x3)-(x4*y3-x3*y4)*(x2-x1))/den,
+              ((x2*y1-x1*y2)*(y4-y3)-(x4*y3-x3*y4)*(y2-y1))/den];
+  }
+  
   /* doSegmentsIntersect
    * Checks whether two segments intersect 
    * Args.: p1 ([2]) Start point of first segment
@@ -41,7 +65,7 @@ var AZZP5 = AZZP5 || {};
   }
   
 	/* threePointOrientation
-   * Finds the orientatio of an ordered triplet of points
+   * Finds the orientation of an ordered triplet of points
    * Args.: p ([2]) First point
    *        q ([2]) Second point
    *        r ([2]) Thrid point

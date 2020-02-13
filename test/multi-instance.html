@@ -166,8 +166,7 @@
     s.setup = function() {
       
       s.createCanvas(cw, ch);	
-      s.frameRate(2);
-      s.strokeWeight(2);
+      s.frameRate(2);      
     }
     
     s.draw = function() {
@@ -181,8 +180,15 @@
         s.stroke('green');
       else
         s.stroke('red');
+      s.strokeWeight(2);
       s.line(p1[0], p1[1], p2[0], p2[1]);  
       s.line(q1[0], q1[1], q2[0], q2[1]);  
+      var i = AZZP5.linesIntersection(p1, p2, q1, q2);
+      if(i!=null) {
+        s.stroke('blue');
+        s.strokeWeight(5);
+        s.point(i[0], i[1]);
+      }      
     }
   }
   new p5(twoDgeometryUtilSketch, '2dgeometry-util-sketch-cntnr');

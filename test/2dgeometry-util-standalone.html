@@ -16,8 +16,7 @@
   function setup() {
   
     createCanvas(cw, ch);	
-    frameRate(2);
-    strokeWeight(2);
+    frameRate(2);    
   }
   
   function draw() {
@@ -31,14 +30,21 @@
       stroke('green');
     else
       stroke('red');
+    strokeWeight(2);
     line(p1[0], p1[1], p2[0], p2[1]);  
     line(q1[0], q1[1], q2[0], q2[1]);  
+    var i = AZZP5.linesIntersection(p1, p2, q1, q2);
+    if(i!=null) {
+      stroke('blue');
+      strokeWeight(5);
+      point(i[0], i[1]);
+    }      
   }
   </script>
 </head>
 
 <body>
-  <h1>colour-util-p5.js</h1>
+  <h1>2dgeometry-util-p5.js</h1>
 </body>
 
 </html>
