@@ -1,0 +1,44 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>2dgeometry-p5js :: 2dgeometry-util test bench</title>
+  <style>
+  body { background:#2e2e2e; color:#cccccc; }
+  </style>
+  <script src="../js/p5.js"></script>
+  <script src="../js/2dgeometry-util-p5.js"></script>
+  <script> 
+  var cw = 600;
+  var ch = 400;
+  function setup() {
+  
+    createCanvas(cw, ch);	
+    frameRate(2);
+    strokeWeight(2);
+  }
+  
+  function draw() {
+  
+    clear();
+    var p1 = [random(cw), random(ch)];
+    var p2 = [random(cw), random(ch)];
+    var q1 = [random(cw), random(ch)];
+    var q2 = [random(cw), random(ch)];
+    if(AZZP5.doSegmentsIntersect(p1, p2, q1, q2))
+      stroke('green');
+    else
+      stroke('red');
+    line(p1[0], p1[1], p2[0], p2[1]);  
+    line(q1[0], q1[1], q2[0], q2[1]);  
+  }
+  </script>
+</head>
+
+<body>
+  <h1>colour-util-p5.js</h1>
+</body>
+
+</html>
