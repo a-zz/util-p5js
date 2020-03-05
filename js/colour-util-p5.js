@@ -14,7 +14,7 @@ var AZZP5 = AZZP5 || {};
    * Generates a 3-colour "monochome" palette based on a certain hue.
    * Args:  hue (integer) The base hue.
    *        s (p5 sketch) For multi-instance operation; not needed for 
-   *        single (global) operation.
+   *          single (global) operation.
    * Rtrn:  ([p5.Color]) A 3-colour array:
    *          [0] Base hue with middle saturation
    *          [1] Companion hue: biased halfway from the base hue, low sat.
