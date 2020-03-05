@@ -1,0 +1,44 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>raster-p5js :: raster-util test bench</title>
+  <style>
+  body { background:#2e2e2e; color:#cccccc; }
+  </style>
+  <script src="../js/p5.js"></script>
+  <script src="../js/raster-util-p5.js"></script>
+  <script> 
+  var cw = 600;
+  var ch = 400;
+  function setup() {
+  
+    createCanvas(cw, ch);	
+    background('white');
+    AZZP5.halftoneRect(cw/20, ch/20, 18*cw/20, 18*ch/20, 10, dotSize, dotColour);
+  }
+  
+  function dotSize(x, y) {
+  
+    return 5;
+  }
+  
+  function dotColour(x, y) {
+  
+    return 'orange';
+  }
+  
+  function draw() {
+  
+    noLoop();
+  }
+  </script>
+</head>
+
+<body>
+  <h1>2dgeometry-util-p5.js</h1>
+</body>
+
+</html>
