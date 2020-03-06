@@ -13,6 +13,7 @@
   <script src="../js/3dvector-util-p5.js"></script>
   <script src="../js/perspective-util-p5.js"></script>
   <script src="../js/2dgeometry-util-p5.js"></script>
+  <script src="../js/raster-util-p5.js"></script>
   <script>
   var colourUtilSketch = function(s) {
   
@@ -192,6 +193,52 @@
     }
   }
   new p5(twoDgeometryUtilSketch, '2dgeometry-util-sketch-cntnr');
+  
+  var rasterUtilSketch = function(s) {
+
+    var cw = 600;
+    var ch = 400;
+    var gs = 10;  
+    var nsx = 0.01, nsy = 0.01, nst = 0.05;
+    var xts = 10;  
+    var bgImage;    
+    s.setup = function() {
+    
+      s.createCanvas(cw, ch);	
+      s.background('#333333');
+      s.noiseDetail(4, 0.5);
+      s.frameRate(30);
+      
+      s.strokeWeight(2);
+      for(y=ch; y>=0; y--) {
+        var hsl = 'hsla(197, 71%, ' + 
+            s.map(y, 0.9*ch, 0.5*ch, 90, 73, true) + '%, 1)';
+        s.stroke(hsl);
+        s.line(0, y, cw, y);
+      }		
+      bgImage = s.get();            
+    }
+    
+    var t = 0, xt = 0;
+    s.draw = function() {
+    
+      s.clear();
+      s.background(bgImage);
+      t+=s.deltaTime/1000;
+      xt+=xts*s.deltaTime/1000;
+      AZZP5.halftoneRect(0, 0, cw, ch, gs, 
+        function(x,y) {
+          let ds = 2 * gs * s.noise(nsx*(x+xt), nsy*y, nst*t);
+          return(ds);
+        }, 
+        function(x, y) {
+          let ds = 2 * gs * s.noise(nsx*(x+xt), nsy*y, nst*t);
+          return s.map(ds, 1.5 * gs, 2 * gs, 255, 200);
+        },
+      s);    
+    }    
+  }
+  new p5(rasterUtilSketch, 'raster-util-sketch-cntnr');
   </script>
 </head>
 
@@ -203,7 +250,10 @@
   <div id='perspective-util-sketch-cntnr'></div>  
 
   <h1>2dgeometry-util-p5.js</h1>
-  <div id='2dgeometry-util-sketch-cntnr'></div>    
+  <div id='2dgeometry-util-sketch-cntnr'></div>
+  
+  <h1>raster-util-p5.js</h1>
+  <div id='raster-util-sketch-cntnr'></div>    
 </body>
 
 </html>

@@ -13,32 +13,50 @@
   <script> 
   var cw = 600;
   var ch = 400;
+  var gs = 10;  
+  var nsx = 0.01, nsy = 0.01, nst = 0.05;
+  var xts = 10;  
+  var bgImage;    
   function setup() {
   
     createCanvas(cw, ch);	
-    background('white');
-    AZZP5.halftoneRect(cw/20, ch/20, 18*cw/20, 18*ch/20, 10, dotSize, dotColour);
+    background('#333333');
+    noiseDetail(4, 0.5);
+    frameRate(30);
+    
+    strokeWeight(2);
+    for(y=ch; y>=0; y--) {
+      var hsl = 'hsla(197, 71%, ' + 
+          map(y, 0.9*ch, 0.5*ch, 90, 73, true) + '%, 1)';
+      stroke(hsl);
+      line(0, y, cw, y);
+    }		
+    bgImage = get();            
   }
   
-  function dotSize(x, y) {
-  
-    return 5;
-  }
-  
-  function dotColour(x, y) {
-  
-    return 'orange';
-  }
-  
+  var t = 0, xt = 0;
   function draw() {
   
-    noLoop();
-  }
+    clear();
+    background(bgImage);
+    t+=deltaTime/1000;
+    xt+=xts*deltaTime/1000;
+    AZZP5.halftoneRect(0, 0, cw, ch, gs, 
+      function(x,y) {
+        let s = 2 * gs * noise(nsx*(x+xt), nsy*y, nst*t);
+        return(s);
+      }, 
+      function(x, y) {
+        let s = 2 * gs * noise(nsx*(x+xt), nsy*y, nst*t);
+        return map(s, 1.5 * gs, 2 * gs, 255, 200);
+      }
+    );    
+  }  
   </script>
 </head>
 
 <body>
-  <h1>2dgeometry-util-p5.js</h1>
+  <h1>raster-util-p5.js</h1>
 </body>
 
 </html>
