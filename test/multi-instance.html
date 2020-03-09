@@ -209,13 +209,9 @@
       s.noiseDetail(4, 0.5);
       s.frameRate(30);
       
-      s.strokeWeight(2);
-      for(y=ch; y>=0; y--) {
-        var hsl = 'hsla(197, 71%, ' + 
-            s.map(y, 0.9*ch, 0.5*ch, 90, 73, true) + '%, 1)';
-        s.stroke(hsl);
-        s.line(0, y, cw, y);
-      }		
+      AZZP5.linearGradientRect(0, 0, cw, ch, 
+                               0, 0, 'hsla(197, 71%, 73%, 1)', 
+                               -25, ch+50, 'hsla(197, 31%, 90%, 1)', s);
       bgImage = s.get();            
     }
     

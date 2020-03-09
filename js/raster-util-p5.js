@@ -22,16 +22,19 @@ var AZZP5 = AZZP5 || {};
    *        gex (number) x coordinate of the point where the gradient ends.
    *        gey (number) y coordinate of the point where the gradient ends.
    *        gec (number) Gradient end colour.
+   *        s (p5 sketch) For multi-instance operation; not needed for 
+   *          single (global) operation.
    * Rtrn.: (nothing)
    */  
   context.linearGradientRect = function(rx, ry, rw, rh, 
-                                        gsx, gsy, gsc, gex, gey, gec) {
+                                        gsx, gsy, gsc, gex, gey, gec, s) {
     
-    var grd = drawingContext.createLinearGradient(gsx, gsy, gex, gey);
+    s = s!=null?s:p5.instance;
+    var grd = s.drawingContext.createLinearGradient(gsx, gsy, gex, gey);
     grd.addColorStop(0, gsc);
     grd.addColorStop(1, gec);
-    drawingContext.fillStyle = grd;
-    drawingContext.fillRect(rx, ry, rw, rh); 
+    s.drawingContext.fillStyle = grd;
+    s.drawingContext.fillRect(rx, ry, rw, rh); 
   }
   
   /* halftoneRect
