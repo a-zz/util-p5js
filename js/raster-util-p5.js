@@ -10,6 +10,30 @@
 var AZZP5 = AZZP5 || {};
 (function(context) { 
   
+  /* linearGradientRect
+   * Fills a rectangle with a linear colour gradient.
+   * Args.: rx (number) Left; x coordinate of upper-left corner.
+   *        ry (number) Top; y coordinate of upper-left corner.
+   *        rw (number) Width of the rectangle.
+   *        rh (number) Height of the rectangle.
+   *        gsx (number) x coordinate of the point where the gradient starts.
+   *        gsy (number) y coordinate of the point where the gradient starts.
+   *        gsc (number) Gradient start colour.
+   *        gex (number) x coordinate of the point where the gradient ends.
+   *        gey (number) y coordinate of the point where the gradient ends.
+   *        gec (number) Gradient end colour.
+   * Rtrn.: (nothing)
+   */  
+  context.linearGradientRect = function(rx, ry, rw, rh, 
+                                        gsx, gsy, gsc, gex, gey, gec) {
+    
+    var grd = drawingContext.createLinearGradient(gsx, gsy, gex, gey);
+    grd.addColorStop(0, gsc);
+    grd.addColorStop(1, gec);
+    drawingContext.fillStyle = grd;
+    drawingContext.fillRect(rx, ry, rw, rh); 
+  }
+  
   /* halftoneRect
    * Fills a rectangle with halftone
    * Args.: rx (number) Left; x coordinate of upper-left corner.
