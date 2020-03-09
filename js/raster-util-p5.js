@@ -59,7 +59,11 @@ var AZZP5 = AZZP5 || {};
       for(let y = ry; y<=ry+rh; y+=ds) {
         for(let x = rx+(oddRow?0:ds/2); x<=rx+rw-(oddRow?0:ds/2); x+=ds) {
           let sw = sFcn(x, y);
+          if(sw<=0)
+            continue;
           let sc = cFcn==null?'black':typeof cFcn=="string"?cFcn:cFcn(x, y);
+          if(sw>0 && sw<=1)
+            sc = lerpColor(color('rgba(0, 0, 0, 0)'), color(sc), sw);
           s.strokeWeight(sw);
           s.stroke(sc);
           s.point(x, y);
